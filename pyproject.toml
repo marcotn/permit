@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "permit"
+version = "0.1.0"
+description = "Forest road transit permit management system"
+authors = []
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.13"
+Django = "^6.0.3"
+psycopg = {version = "^3.3.3", extras = ["binary", "pool"]}
+django-allauth = {version = "^65.15.0", extras = ["socialaccount"]}
+Pillow = "^12.2.0"
+docxtpl = "^0.20.2"
+django-htmx = "^1.27.0"
+whitenoise = "^6.12.0"
+gunicorn = "^25.3.0"
+
+[tool.poetry.group.dev.dependencies]
+django-debug-toolbar = "^6.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
