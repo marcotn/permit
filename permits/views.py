@@ -143,6 +143,7 @@ class PermitDocxView(View):
 
     VALID_TYPES = {"admin", "client"}
 
+
     def get(self, request, token, doc_type):
         if doc_type not in self.VALID_TYPES:
             raise Http404
