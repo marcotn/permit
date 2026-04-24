@@ -1,0 +1,26 @@
+{% load i18n %}
+<form
+  hx-post=""
+  hx-target="#form-section"
+  hx-swap="innerHTML"
+  method="post"
+>
+  {% csrf_token %}
+  <div class="row g-3">
+    {% for field in form %}
+      <div class="col-md-6">
+        <label class="form-label fw-semibold">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger mt-3 py-2">{{ form.non_field_errors|join:", " }}</div>
+  {% endif %}
+  <button type="submit" class="btn btn-dark mt-4 px-5">
+    Salva e genera permesso
+  </button>
+</form>

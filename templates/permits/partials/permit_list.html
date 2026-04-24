@@ -1,0 +1,68 @@
+{% load i18n %}
+<div id="permit-list-wrapper">
+  {% if show_success %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      Permesso creato e email inviata con successo.
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  {% endif %}
+
+  <div class="card">
+    <div class="card-header bg-white fw-bold">Permessi emessi</div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Email</th>
+            <th>Valido dal</th>
+            <th>Valido al</th>
+            <th>Stato</th>
+            <th>Titolare</th>
+            <th>Scarica</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in permits %}
+            <tr>
+              <td>
+                {% if p.permit_number %}
+                  <span class="fw-bold">{{ p.permit_number }}/{{ p.permit_year }}</span>
+                {% else %}
+                  <span class="text-muted">–</span>
+                {% endif %}
+              </td>
+              <td>{{ p.email }}</td>
+              <td>{{ p.valid_from|date:"d/m/Y" }}</td>
+              <td>{{ p.valid_to|date:"d/m/Y" }}</td>
+              <td>
+                {% if p.is_completed %}
+                  <span class="badge bg-success">Completato</span>
+                {% elif p.is_token_valid %}
+                  <span class="badge bg-warning text-dark">In attesa</span>
+                {% else %}
+                  <span class="badge bg-danger">Scaduto</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if p.first_name %}{{ p.first_name }} {{ p.last_name }}{% else %}–{% endif %}
+              </td>
+              <td>
+                {% if p.is_completed %}
+                  <div class="d-flex gap-1 flex-wrap">
+                    <a href="{% url 'permit_docx' p.token 'admin' %}" class="btn btn-sm btn-dark">Gestore</a>
+                    <a href="{% url 'permit_docx' p.token 'client' %}" class="btn btn-sm btn-outline-dark">Cliente</a>
+                  </div>
+                {% else %}
+                  <span class="text-muted small">–</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="7" class="text-center text-muted py-4">Nessun permesso ancora.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

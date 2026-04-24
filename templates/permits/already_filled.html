@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Permesso già compilato{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6 text-center py-5">
+    <div class="card p-5">
+      <h3 class="fw-bold mb-3">Permesso già compilato</h3>
+      <p class="text-muted mb-4">
+        Questo permesso è già stato compilato. Puoi scaricare la tua copia qui sotto.
+      </p>
+      <div class="mb-4">
+        <p class="mb-1"><strong>{{ permit.first_name }} {{ permit.last_name }}</strong></p>
+        <p class="mb-1 text-muted">{{ permit.city }}</p>
+        <p class="mb-1">{{ permit.get_vehicle_type_display }} – <strong>{{ permit.plate }}</strong></p>
+        <p class="text-muted small">
+          N. {{ permit.permit_number }}/{{ permit.permit_year }} –
+          Emesso il {{ permit.issued_at|date:"d/m/Y" }}
+        </p>
+      </div>
+      <a href="{% url 'permit_docx' permit.token 'client' %}" class="btn btn-dark btn-lg px-5">
+        Scarica il tuo permesso
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

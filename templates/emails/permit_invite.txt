@@ -1,0 +1,40 @@
+AUTORIZZAZIONE AL TRANSITO SU STRADA FORESTALE
+PROVINCIA AUTONOMA DI TRENTO – ASUC DI CELENTINO
+
+Gentile destinatario,
+
+Lei è stato autorizzato al transito sulla strada forestale.
+Il permesso è valido dal {{ permit.valid_from|date:"d/m/Y" }} al {{ permit.valid_to|date:"d/m/Y" }}.
+
+Per completare e stampare il suo permesso, acceda al seguente link entro 24 ore:
+{{ permit.public_url }}
+
+---
+
+TRANSITGENEHMIGUNG AUF FORSTSTRASSE
+AUTONOME PROVINZ TRIENT – ASUC VON CELENTINO
+
+Sehr geehrte/r Empfänger/in,
+
+Sie wurden für den Transit auf der Forststraße autorisiert.
+Die Genehmigung ist gültig vom {{ permit.valid_from|date:"d/m/Y" }} bis {{ permit.valid_to|date:"d/m/Y" }}.
+
+Um Ihre Genehmigung auszufüllen und zu drucken, öffnen Sie bitte folgenden Link innerhalb von 24 Stunden:
+{{ permit.public_url }}
+
+---
+
+FOREST ROAD TRANSIT PERMIT
+AUTONOMOUS PROVINCE OF TRENTO – ASUC DI CELENTINO
+
+Dear recipient,
+
+You have been authorized for transit on the forest road.
+The permit is valid from {{ permit.valid_from|date:"d/m/Y" }} to {{ permit.valid_to|date:"d/m/Y" }}.
+
+To complete and print your permit, please access the following link within 24 hours:
+{{ permit.public_url }}
+
+---
+
+Questo link scade dopo 24 ore / Dieser Link läuft nach 24 Stunden ab / This link expires after 24 hours.

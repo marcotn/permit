@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Admin Panel – Permit{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+
+  <!-- Create form -->
+  <div class="col-lg-4">
+    <div class="card p-4">
+      <h5 class="mb-3 fw-bold">Nuovo permesso</h5>
+      <div id="create-form-wrapper">
+        {% include "permits/partials/create_form.html" %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Permit list -->
+  <div class="col-lg-8">
+    <div id="permit-list-wrapper">
+      {% include "permits/partials/permit_list.html" %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

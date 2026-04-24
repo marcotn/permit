@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Link scaduto{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-5 text-center py-5">
+    <div class="card p-5">
+      <h3 class="fw-bold text-danger mb-3">Link scaduto</h3>
+      <p class="text-muted">
+        Questo link non è più valido. I link per la compilazione del permesso
+        sono validi per <strong>24 ore</strong> dall'invio dell'email.
+      </p>
+      <hr>
+      <p class="small text-muted">
+        <strong>DE:</strong> Dieser Link ist nicht mehr gültig (24h Gültigkeit).<br>
+        <strong>EN:</strong> This link has expired (valid for 24 hours).
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
