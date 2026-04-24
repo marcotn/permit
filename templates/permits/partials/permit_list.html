@@ -1,4 +1,9 @@
 {% load i18n %}
+{% if show_success %}
+<div id="create-form-wrapper" hx-swap-oob="true">
+  {% include "permits/partials/create_form.html" %}
+</div>
+{% endif %}
 <div id="permit-list-wrapper">
   {% if show_success %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
