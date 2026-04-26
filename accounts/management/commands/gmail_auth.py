@@ -32,7 +32,8 @@ class Command(BaseCommand):
 
         if not client_id or not client_secret:
             self.stderr.write(self.style.ERROR(
-                "GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be set."
+                "GMAIL_CLIENT_ID and GMAIL_CLIENT_SECRET must be set.\n"
+                "Create a Desktop app OAuth credential in GCP Console and add them to .env"
             ))
             return
 

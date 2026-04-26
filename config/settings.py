@@ -177,9 +177,10 @@ else:
 
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "noreply@permit.example.com")
 
-# Gmail API credentials (condivise con il social login Google)
-GMAIL_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
-GMAIL_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
+# Gmail API credentials – credenziali tipo "Desktop app" (separate dal social login)
+# Crea un nuovo OAuth client ID di tipo Desktop app in GCP Console e usa quelli qui.
+GMAIL_CLIENT_ID = os.environ.get("GMAIL_CLIENT_ID", "")
+GMAIL_CLIENT_SECRET = os.environ.get("GMAIL_CLIENT_SECRET", "")
 GMAIL_REFRESH_TOKEN = os.environ.get("GMAIL_REFRESH_TOKEN", "")
 
 
