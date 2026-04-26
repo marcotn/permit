@@ -126,6 +126,7 @@ SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_QUERY_EMAIL = True
 
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
@@ -134,8 +135,12 @@ SOCIALACCOUNT_PROVIDERS = {
             "secret": os.environ.get("GOOGLE_CLIENT_SECRET", ""),
         },
         "SCOPE": ["profile", "email"],
-        "AUTH_PARAMS": {"access_type": "online"},
+        "AUTH_PARAMS": {"access_type": "offline"},
         "OAUTH_PKCE_ENABLED": True,
+        "EMAIL_AUTHENICATION": True,
+        "EMAIL_AUTHENTICATION_AUTO_CONNECT": True,
+        "SOCIALACCOUNT_ONLY": os.environ.get("SOCIALACCOUNT_ONLY", "1") == "1",
+        
     },
 }
 
@@ -144,23 +149,38 @@ SOCIALACCOUNT_PROVIDERS = {
 # Elenco separato da virgole, es: https://permit.vitreo.cloud
 CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "http://localhost:8000").split(",")
 
-LOGIN_URL = "/accounts/google/login/"
+#LOGIN_URL = "/accounts/google/login/"
 LOGIN_REDIRECT_URL = "/admin-panel/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 
 # ---------------------------------------------------------------------------
-# Email – SMTP
-# Sviluppo: Mailpit (EMAIL_HOST=mailpit, PORT=1025, TLS=False)
-# Produzione: Gmail SMTP (HOST=smtp.gmail.com, PORT=587, TLS=True)
-#             EMAIL_HOST_PASSWORD = App Password Gmail (16 caratteri)
+# Email
+# Sviluppo : Mailpit SMTP  →  EMAIL_BACKEND=smtp (default)
+# Produzione: Gmail API    →  EMAIL_BACKEND=gmail
+#
+# Per usare Gmail API:
+#   1. Abilita Gmail API nel progetto GCP
+#   2. Aggiungi scope https://www.googleapis.com/auth/gmail.send alla OAuth consent screen
+#   3. Esegui una volta in locale: python manage.py gmail_auth
+#   4. Copia GMAIL_REFRESH_TOKEN nell'env di produzione
 # ---------------------------------------------------------------------------
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "mailpit")
-EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 1025))
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "False") == "True"
+_email_backend = os.environ.get("EMAIL_BACKEND", "smtp")
+if _email_backend == "gmail":
+    EMAIL_BACKEND = "config.gmail_backend.GmailAPIBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = os.environ.get("EMAIL_HOST", "mailpit")
+    EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 1025))
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+    EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "False") == "True"
+
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "noreply@permit.example.com")
+
+# Gmail API credentials (condivise con il social login Google)
+GMAIL_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
+GMAIL_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
+GMAIL_REFRESH_TOKEN = os.environ.get("GMAIL_REFRESH_TOKEN", "")
 
 
 SITE_URL = os.environ.get("SITE_URL", "http://localhost:8000")
