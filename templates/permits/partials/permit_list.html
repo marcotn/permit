@@ -37,7 +37,9 @@
                   <span class="text-muted">–</span>
                 {% endif %}
               </td>
-              <td>{{ p.email }}</td>
+              <td>
+                <span title="{{ p.email }}">{{ p.email|truncatechars:30 }}</span>
+              </td>
               <td>{{ p.valid_from|date:"d/m/Y" }}</td>
               <td>{{ p.valid_to|date:"d/m/Y" }}</td>
               <td>
@@ -54,12 +56,20 @@
               </td>
               <td>
                 {% if p.is_completed %}
-                  <div class="d-flex gap-1 flex-wrap">
-                    <a href="{% url 'permit_docx' p.token 'admin' %}" class="btn btn-sm btn-dark">Gestore</a>
-                    <a href="{% url 'permit_docx' p.token 'client' %}" class="btn btn-sm btn-outline-dark">Cliente</a>
+                  <div class="d-flex gap-2">
+                    <a href="{% url 'permit_docx' p.token 'admin' %}"
+                       class="text-dark"
+                       title="Scarica copia gestore">
+                      <i class="bi bi-file-earmark-word fs-5"></i>
+                    </a>
+                    <a href="{% url 'permit_docx' p.token 'client' %}"
+                       class="text-secondary"
+                       title="Scarica copia cliente">
+                      <i class="bi bi-file-earmark fs-5"></i>
+                    </a>
                   </div>
                 {% else %}
-                  <span class="text-muted small">–</span>
+                  <span class="text-muted">–</span>
                 {% endif %}
               </td>
             </tr>
