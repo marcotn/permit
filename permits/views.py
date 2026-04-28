@@ -1,3 +1,5 @@
+import io
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,6 +9,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import ListView, RedirectView
+
+from permits.convert2pdf import Convert2PDF
 
 from .document import generate_permit_docx
 from .email import send_permit_email
@@ -149,9 +153,11 @@ class PermitDocxView(View):
             raise Http404
         permit = get_object_or_404(PermitRequest, token=token, is_completed=True)
         docx_bytes = generate_permit_docx(permit, doc_type)
+        pdf_bytes = Convert2PDF.convert2pdf(f"permesso_{permit.permit_number}_{permit.permit_year}_{doc_type}.docx",
+                                             io.BytesIO(docx_bytes))
         label = "gestore" if doc_type == "admin" else "cliente"
-        filename = f"permesso_{permit.permit_number}_{permit.permit_year}_{label}.docx"
-        content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        response = HttpResponse(docx_bytes, content_type=content_type)
+        filename = f"permesso_{permit.permit_number}_{permit.permit_year}_{label}.pdf"
+        content_type = 'application/pdf'
+        response = HttpResponse(pdf_bytes, content_type=content_type)
         response["Content-Disposition"] = f'attachment; filename="{filename}"'
         return response
