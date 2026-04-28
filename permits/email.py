@@ -15,7 +15,4 @@ def send_permit_email(permit):
 
     msg = EmailMultiAlternatives(subject, text_body, from_email, to)
     msg.attach_alternative(html_body, "text/html")
-    try:
-        msg.send()
-    except Exception as e:
-        print(f"Error sending email: {e}")  
+    msg.send()

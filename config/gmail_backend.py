@@ -2,10 +2,10 @@
 Custom Django email backend that sends via the Gmail API (OAuth2).
 
 Required settings / env vars:
-  GOOGLE_CLIENT_ID      – OAuth2 client ID (same used for social login)
-  GOOGLE_CLIENT_SECRET  – OAuth2 client secret
-  GMAIL_REFRESH_TOKEN   – refresh token obtained via `manage.py gmail_auth`
-  DEFAULT_FROM_EMAIL    – sender address (must match the authorised account)
+  GMAIL_CLIENT_ID      – OAuth2 Desktop app client ID (separato dal social login)
+  GMAIL_CLIENT_SECRET  – OAuth2 Desktop app client secret
+  GMAIL_REFRESH_TOKEN  – refresh token ottenuto con `manage.py gmail_auth`
+  DEFAULT_FROM_EMAIL   – indirizzo mittente (deve corrispondere all'account autorizzato)
 """
 import base64
 import logging
