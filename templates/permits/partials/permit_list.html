@@ -58,14 +58,12 @@
                 {% if p.is_completed %}
                   <div class="d-flex gap-2">
                     <a href="{% url 'permit_docx' p.token 'admin' %}"
-                       class="text-dark"
-                       title="Scarica copia gestore">
-                      <i class="bi bi-file-earmark-word fs-5"></i>
+                       class="dl-icon" title="Scarica copia gestore">
+                      <i class="bi bi-file-earmark-word"></i>
                     </a>
                     <a href="{% url 'permit_docx' p.token 'client' %}"
-                       class="text-secondary"
-                       title="Scarica copia cliente">
-                      <i class="bi bi-file-earmark fs-5"></i>
+                       class="dl-icon secondary" title="Scarica copia cliente">
+                      <i class="bi bi-file-earmark"></i>
                     </a>
                   </div>
                 {% else %}

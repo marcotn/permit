@@ -1,13 +1,28 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
-{% block title %}Compila il permesso{% endblock %}
+{% block title %}Autorizzazione al transito – Malga Campo Nestalp{% endblock %}
 
 {% block content %}
+<!-- Hero con logo -------------------------------------------------->
+<div class="text-center mb-5">
+  <img src="{% static 'images/nest.jpeg' %}"
+       alt="Malga Campo Nestalp"
+       style="height:110px; width:auto; drop-shadow(0 4px 12px rgba(0,0,0,.25));">
+  <h1 class="mt-3 fw-bold" style="color:var(--ns-teal); letter-spacing:1px;">
+    Malga Campo Nestalp
+  </h1>
+  <p class="text-muted mb-0">A.S.U.C. di Celentino – Provincia Autonoma di Trento</p>
+</div>
+
+<!-- Card form ----------------------------------------------------->
 <div class="row justify-content-center">
   <div class="col-lg-7">
     <div class="card p-4">
-      <h4 class="fw-bold mb-1">Autorizzazione al transito</h4>
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <i class="bi bi-shield-check fs-4" style="color:var(--ns-gold);"></i>
+        <h4 class="fw-bold mb-0">Autorizzazione al transito</h4>
+      </div>
       <p class="text-muted small mb-4">
         Valido dal <strong>{{ permit.valid_from|date:"d/m/Y" }}</strong>
         al <strong>{{ permit.valid_to|date:"d/m/Y" }}</strong>

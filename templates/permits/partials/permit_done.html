@@ -1,18 +1,29 @@
-{% load i18n %}
-<div>
-  <div class="alert alert-success mb-4">
-    <strong>Permesso salvato!</strong> N. {{ permit.permit_number }}/{{ permit.permit_year }}
+{% load i18n static %}
+<div class="text-center mb-4">
+  <img src="{% static 'images/nest.jpeg' %}"
+       alt="Malga Campo Nestalp"
+       style="height:80px; width:auto;">
+</div>
+
+<div class="alert mb-4 d-flex align-items-center gap-2"
+     style="background:var(--ns-teal); color:var(--ns-cream); border:none;">
+  <i class="bi bi-check-circle-fill fs-5"></i>
+  <div>
+    <strong>Permesso salvato!</strong>
+    N.&nbsp;{{ permit.permit_number }}/{{ permit.permit_year }}
   </div>
-  <div class="card p-4 text-center">
-    <p class="mb-1"><strong>{{ permit.first_name }} {{ permit.last_name }}</strong></p>
-    <p class="mb-1 text-muted">{{ permit.city }}</p>
-    <p class="mb-1">{{ permit.get_vehicle_type_display }} – <strong>{{ permit.plate }}</strong></p>
-    <p class="mb-3 text-muted small">
-      Valido dal {{ permit.valid_from|date:"d/m/Y" }} al {{ permit.valid_to|date:"d/m/Y" }}<br>
-      Emesso il {{ permit.issued_at|date:"d/m/Y H:i" }}
-    </p>
-    <a href="{% url 'permit_docx' permit.token 'client' %}" class="btn btn-dark btn-lg px-5">
-      Scarica il tuo permesso
-    </a>
-  </div>
+</div>
+
+<div class="card p-4 text-center">
+  <p class="mb-1 fs-5 fw-bold">{{ permit.first_name }} {{ permit.last_name }}</p>
+  <p class="mb-1 text-muted">{{ permit.city }}</p>
+  <p class="mb-1">{{ permit.get_vehicle_type_display }} – <strong>{{ permit.plate }}</strong></p>
+  <p class="mb-4 text-muted small">
+    Valido dal {{ permit.valid_from|date:"d/m/Y" }} al {{ permit.valid_to|date:"d/m/Y" }}<br>
+    Emesso il {{ permit.issued_at|date:"d/m/Y H:i" }}
+  </p>
+  <a href="{% url 'permit_docx' permit.token 'client' %}"
+     class="btn btn-dark btn-lg px-5">
+    <i class="bi bi-download me-2"></i>Scarica il tuo permesso
+  </a>
 </div>
